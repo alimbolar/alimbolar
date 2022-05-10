@@ -44,7 +44,7 @@ exports.sendContactUsMessage = (req, res, next) => {
       res.status(200).json({
         status: "success",
         message:
-          "Email sent successfully. \n We will get back to you soon. \n We look forward to hosting you at our home.",
+          "Email sent successfully. \r\n We will get back to you soon. \r\n \r\n We look forward to hosting you at our home.",
       });
     }
   });
