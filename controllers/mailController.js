@@ -24,24 +24,26 @@ transporter.verify((error, success) => {
 });
 
 exports.sendContactUsMessage = (req, res, next) => {
+  const { name, email, mobile, message, subject, recipient } = req.body;
+
   mailOptions = {
-    from: "testing@gmail.com",
-    to: "alimbolar@gmail.com",
-    subject: "Testing Email",
-    text: "Email sent again successfully with process.env!!",
+    from: email,
+    to: recipient,
+    subject: subject,
+    text: message,
   };
 
   transporter.sendMail(mailOptions, (error) => {
     if (error) {
       res.status(400).json({
         status: "fail",
-        message: "Could not send email",
+        message: "Could not send email. Please try later",
       });
     } else {
       console.log("email sent");
       res.status(200).json({
         status: "success",
-        message: "Email sent successfully",
+        message: "Email sent successfully. We will get back to you soon.",
       });
     }
   });
