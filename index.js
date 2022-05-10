@@ -10,6 +10,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/public", express.static(path.join(__dirname, "public")));
 
-app.use("/api/v1/mail", mailRouter);
+app.use("/api/v1/mails", mailRouter);
 
 module.exports = app;
