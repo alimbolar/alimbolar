@@ -4,14 +4,19 @@
   "description": "Mail server for alimbolar.com",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node server",
+    "start": "nodemon server"
   },
   "author": "Alim Bolar",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^16.0.0",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
-    "nodemailer": "^6.7.5"
+    "mongodb": "^4.7.0",
+    "mongoose": "^6.4.2",
+    "nodemailer": "^6.7.5",
+    "nodemon": "^2.0.18",
+    "validator": "^13.7.0"
   }
 }
