@@ -45,11 +45,11 @@ const userSchema = new mongoose.Schema({
   address: String,
   city: String,
   companyCountry: String,
-  country: {
-    type: String,
-    default: "null",
-    required: true,
-  },
+  // country: {
+  //   type: String,
+  //   default: "null",
+  //   required: true,
+  // },
   nationality: {
     type: String,
     default: "null",
