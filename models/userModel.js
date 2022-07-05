@@ -44,12 +44,12 @@ const userSchema = new mongoose.Schema({
   },
   address: String,
   city: String,
-  companyCountry: String,
-  // country: {
-  //   type: String,
-  //   default: "null",
-  //   required: true,
-  // },
+  // companyCountry: String,
+  country: {
+    type: String,
+    default: "null",
+    required: true,
+  },
   nationality: {
     type: String,
     default: "null",
