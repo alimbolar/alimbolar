@@ -1,29 +1,31 @@
-const dotenv = require("dotenv");
+const app = require("./index");
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+
 dotenv.config({ path: `${__dirname}/.env` });
 
-// console.log("DB", process.env);
-// console.log("DB", process.env.DATABASE);
+const DB = process.env.DATABASE.replace(
+  `{%PASSWORD%}`,
+  process.env.DATABASE_PASSWORD
+);
 
-const DB =
-  "mongodb+srv://alimbolar:alimbolar@vpexpo2022.pa92ikr.mongodb.net/vpexpodb";
+mongoose
+  .connect(DB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Connected to DB"))
+  .catch((error) => console.log(error));
 
-// create URL for DB from .env
-// const DB = process.env.DATABASE.replace(
-//   "{%PASSWORD%}",
-//   process.env.DATABASE_PASSWORD
-// );
-
-// create mongoose connection
-mongoose.connect(DB).then(() => console.log("DB connected"));
-
-// instantiate app from index.js (normally app.js)
-const app = require("./app");
-
-// define PORT
 const PORT = process.env.PORT || 3000;
 
-// make app listen and instantiate server
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+const server = app.listen(PORT, function () {
+  console.log(`Server is running at Port ${PORT}`);
+});
+
+process.on("unhandledRejection", (err) => {
+  console.log("UNHANDLED REJECTION 💥 :", err.name, err.message);
+  console.log("STACK :", err.stack);
+  console.log("Shutting down server...");
+  server.close(() => process.exit(1));
 });
