@@ -4,8 +4,8 @@
   "description": "Main server for alimbolar.com",
   "main": "index.js",
   "scripts": {
-    "build": "node server",
-    "dev": "nodemon server"
+    "build": "node server.js",
+    "dev": "nodemon server.js"
   },
   "author": "Alim Bolar",
   "license": "ISC",

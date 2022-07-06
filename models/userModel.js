@@ -42,7 +42,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  address: String,
+  addressStreet: String,
+  addressArea: String,
+  state: String,
+  postalCode: String,
   city: String,
   // companyCountry: String,
   country: {
@@ -50,6 +53,9 @@ const userSchema = new mongoose.Schema({
     default: "null",
     required: true,
   },
+  website: String,
+  leadSource: String,
+  preferredLanguage: String,
   nationality: {
     type: String,
     default: "null",
