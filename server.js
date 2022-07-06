@@ -2,14 +2,17 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 dotenv.config({ path: `${__dirname}/.env` });
 
-console.log("DB", process.env);
-console.log("DB", process.env.DATABASE);
+// console.log("DB", process.env);
+// console.log("DB", process.env.DATABASE);
+
+const DB =
+  "mongodb+srv://alimbolar:alimbolar@vpexpo2022.pa92ikr.mongodb.net/vpexpodb";
 
 // create URL for DB from .env
-const DB = process.env.DATABASE.replace(
-  "{%PASSWORD%}",
-  process.env.DATABASE_PASSWORD
-);
+// const DB = process.env.DATABASE.replace(
+//   "{%PASSWORD%}",
+//   process.env.DATABASE_PASSWORD
+// );
 
 // create mongoose connection
 mongoose.connect(DB).then(() => console.log("DB connected"));
