@@ -8,7 +8,10 @@ vpExpoController.indexView = function (req, res, next) {
 
 vpExpoController.addRegistration = async function (req, res, next) {
   try {
-    const user = await User.create(req.body);
+    console.log(req.body);
+    console.log(req.body.data);
+
+    const user = await User.create(req.body.data);
 
     res.status(200).json({
       status: "success",
