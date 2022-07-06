@@ -18,7 +18,7 @@ const DB =
 mongoose.connect(DB).then(() => console.log("DB connected"));
 
 // instantiate app from index.js (normally app.js)
-const app = require("./index");
+const app = require("./app");
 
 // define PORT
 const PORT = process.env.PORT || 3000;
