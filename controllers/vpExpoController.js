@@ -1,6 +1,6 @@
 const vpExpoController = {};
 
-const User = require("../models/registrationModel");
+const User = require("../models/registrantModel");
 
 vpExpoController.indexView = function (req, res, next) {
   res.send("<h1>Hello World</h1>");
