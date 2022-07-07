@@ -2,6 +2,8 @@ const app = require("./index");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 
+const zohoController = require("./controllers/zohoController");
+
 dotenv.config({ path: `${__dirname}/.env` });
 
 const DB = process.env.DATABASE.replace(
@@ -18,6 +20,10 @@ mongoose
   .catch((error) => console.log(error));
 
 const PORT = process.env.PORT || 3000;
+
+// const crmToken = zohoController.getAccessTokenForCrm();
+
+// console.log("crmToken in server.js", crmToken);
 
 const server = app.listen(PORT, function () {
   console.log(`Server is running at Port ${PORT}`);

@@ -1,7 +1,9 @@
+const axios = require("axios");
 const vpExpoController = {};
 
 const Registrant = require("../models/registrantModel");
 const Exhibitor = require("../models/exhibitorModel");
+const zohoController = require("../controllers/zohoController");
 
 vpExpoController.indexView = function (req, res, next) {
   res.send("<h1>Hello World</h1>");
@@ -50,6 +52,35 @@ vpExpoController.addOneExhibitor = async function (req, res, next) {
     res.status(400).json({
       status: "fail",
       message: error.message,
+      error,
+    });
+  }
+};
+
+vpExpoController.getOneRegistrant = async function (req, res, next) {
+  try {
+    const crmToken = await zohoController.getAccessTokenForCrm();
+    const id = req.params.id;
+
+    // Create URL with id appended for fetching data
+    const url = `${process.env.ZOHO_LEADS_URL_FOR_CRM}${id}`;
+    // console.log("url", url);
+
+    const { data } = await axios.get(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Zoho-oauthtoken ${crmToken.token}`,
+      },
+    });
+
+    res.status(200).json({
+      status: "success",
+      data,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: "fail",
       error,
     });
   }
