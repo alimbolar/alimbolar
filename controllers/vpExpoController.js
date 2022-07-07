@@ -35,11 +35,21 @@ vpExpoController.addOneRegistrant = async function (req, res, next) {
 
 vpExpoController.getOneRegistrant = async function (req, res, next) {
   try {
+    const query = req.query;
+    let queryString = "?";
+    // console.log(query);
+    Object.entries(query).map(
+      ([key, value]) => (queryString += `${key}=${value}&`)
+    );
+    queryString = queryString.slice(0, -1);
+
     const crmToken = await zohoController.getAccessTokenForCrm();
     const id = req.params.id;
 
     // Create URL with id appended for fetching data
-    const url = `${process.env.ZOHO_REGISTRANTS_URL_FOR_CRM}/${id}`;
+    const url = `${process.env.ZOHO_REGISTRANTS_URL_FOR_CRM}/${id}`.concat(
+      queryString
+    );
     // console.log("url", url);
 
     const { data } = await axios.get(url, {
@@ -64,10 +74,20 @@ vpExpoController.getOneRegistrant = async function (req, res, next) {
 
 vpExpoController.getAllRegistrants = async function (req, res, next) {
   try {
+    const query = req.query;
+    let queryString = "?";
+    // console.log(query);
+    Object.entries(query).map(
+      ([key, value]) => (queryString += `${key}=${value}&`)
+    );
+    queryString = queryString.slice(0, -1);
+
     const crmToken = await zohoController.getAccessTokenForCrm();
 
-    // Create URL with id appended for fetching data
-    const url = `${process.env.ZOHO_REGISTRANTS_URL_FOR_CRM}?fields=Last_Name,First_Name,Email`;
+    // Create URL with queryString appended for fetching data
+    const url = `${process.env.ZOHO_REGISTRANTS_URL_FOR_CRM}`.concat(
+      queryString
+    );
     console.log("url", url);
 
     const { data } = await axios.get(url, {
@@ -79,6 +99,7 @@ vpExpoController.getAllRegistrants = async function (req, res, next) {
 
     res.status(200).json({
       status: "success",
+      query,
       result: Object.keys(data.data).length,
       data,
     });
