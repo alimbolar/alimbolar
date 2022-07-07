@@ -1,6 +1,6 @@
 const vpExpoController = {};
 
-const User = require("../models/registrantModel");
+const Registrant = require("../models/registrantModel");
 
 vpExpoController.indexView = function (req, res, next) {
   res.send("<h1>Hello World</h1>");
@@ -13,11 +13,11 @@ vpExpoController.addOneRegistrant = async function (req, res, next) {
     console.log(req.body);
     console.log(req.body.data);
 
-    const user = await User.create(req.body.data);
+    const registrant = await Registrant.create(req.body.data);
 
     res.status(200).json({
       status: "success",
-      user,
+      registrant,
     });
   } catch (error) {
     console.log(error);
