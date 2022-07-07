@@ -97,6 +97,6 @@ const registrantSchema = new mongoose.Schema({
   },
 });
 
-const Registrant = mongoose.model("User", registrantSchema);
+const Registrant = mongoose.model("Registrant", registrantSchema);
 
 module.exports = Registrant;

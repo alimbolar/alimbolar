@@ -10,8 +10,7 @@ vpExpoController.indexView = function (req, res, next) {
 
 vpExpoController.addOneRegistrant = async function (req, res, next) {
   try {
-    console.log(req.body);
-    console.log(req.body.data);
+    // console.log(req.body.data);
 
     const registrant = await Registrant.create(req.body.data);
 
