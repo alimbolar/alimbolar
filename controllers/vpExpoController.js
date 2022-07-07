@@ -33,6 +33,64 @@ vpExpoController.addOneRegistrant = async function (req, res, next) {
   }
 };
 
+vpExpoController.getOneRegistrant = async function (req, res, next) {
+  try {
+    const crmToken = await zohoController.getAccessTokenForCrm();
+    const id = req.params.id;
+
+    // Create URL with id appended for fetching data
+    const url = `${process.env.ZOHO_REGISTRANTS_URL_FOR_CRM}/${id}`;
+    // console.log("url", url);
+
+    const { data } = await axios.get(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Zoho-oauthtoken ${crmToken.token}`,
+      },
+    });
+
+    res.status(200).json({
+      status: "success",
+      data,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: "fail",
+      error,
+    });
+  }
+};
+
+vpExpoController.getAllRegistrants = async function (req, res, next) {
+  try {
+    const crmToken = await zohoController.getAccessTokenForCrm();
+
+    // Create URL with id appended for fetching data
+    const url = `${process.env.ZOHO_REGISTRANTS_URL_FOR_CRM}?fields=Last_Name,First_Name,Email`;
+    console.log("url", url);
+
+    const { data } = await axios.get(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Zoho-oauthtoken ${crmToken.token}`,
+      },
+    });
+
+    res.status(200).json({
+      status: "success",
+      result: Object.keys(data.data).length,
+      data,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: "fail",
+      error,
+    });
+  }
+};
+
 // ADD EXHIBITOR TO MONGO
 
 vpExpoController.addOneExhibitor = async function (req, res, next) {
@@ -57,19 +115,48 @@ vpExpoController.addOneExhibitor = async function (req, res, next) {
   }
 };
 
-vpExpoController.getOneRegistrant = async function (req, res, next) {
+vpExpoController.getAllExhibitors = async function (req, res, next) {
   try {
-    const crmToken = await zohoController.getAccessTokenForCrm();
-    const id = req.params.id;
+    const creatorToken = await zohoController.getAccessTokenForCreator();
 
     // Create URL with id appended for fetching data
-    const url = `${process.env.ZOHO_LEADS_URL_FOR_CRM}${id}`;
+    const url = `${process.env.ZOHO_EXHIBITORS_URL_FOR_CREATOR}`;
     // console.log("url", url);
 
     const { data } = await axios.get(url, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Zoho-oauthtoken ${crmToken.token}`,
+        Authorization: `Zoho-oauthtoken ${creatorToken.token}`,
+      },
+    });
+
+    res.status(200).json({
+      status: "success",
+      result: Object.keys(data.data).length,
+      data,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: "fail",
+      error,
+    });
+  }
+};
+
+vpExpoController.getOneExhibitor = async function (req, res, next) {
+  try {
+    const creatorToken = await zohoController.getAccessTokenForCreator();
+    const id = req.params.id;
+
+    // Create URL with id appended for fetching data
+    const url = `${process.env.ZOHO_EXHIBITORS_URL_FOR_CREATOR}/${id}`;
+    // console.log("url", url);
+
+    const { data } = await axios.get(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Zoho-oauthtoken ${creatorToken.token}`,
       },
     });
 
