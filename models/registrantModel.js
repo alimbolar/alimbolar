@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 
-const userSchema = new mongoose.Schema({
-  visitorId: {
+const registrantSchema = new mongoose.Schema({
+  registrantId: {
     type: String,
     required: true,
   },
@@ -97,6 +97,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-const User = mongoose.model("User", userSchema);
+const Registrant = mongoose.model("User", registrantSchema);
 
-module.exports = User;
+module.exports = Registrant;
