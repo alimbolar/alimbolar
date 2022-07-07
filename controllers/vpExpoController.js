@@ -11,7 +11,9 @@ vpExpoController.indexView = function (req, res, next) {
 
 vpExpoController.addOneRegistrant = async function (req, res, next) {
   try {
-    // console.log(req.body.data);
+    const registrantId = req.body.data.registrantId;
+    const exists = await Registrant.findOne({ registrantId });
+    if (exists) throw new Error("Registrant exists");
 
     const registrant = await Registrant.create(req.body.data);
 
@@ -33,6 +35,10 @@ vpExpoController.addOneRegistrant = async function (req, res, next) {
 
 vpExpoController.addOneExhibitor = async function (req, res, next) {
   try {
+    const exhibitorId = req.body.data.exhibitorId;
+    const exists = await Exhibitor.findOne({ exhibitorId });
+    if (exists) throw new Error("Exhibitor Exists");
+
     const exhibitor = await Exhibitor.create(req.body.data);
 
     res.status(200).json({
